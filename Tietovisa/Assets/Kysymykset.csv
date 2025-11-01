@@ -1,0 +1,5 @@
+Mikä komponentti vastaa 2D-tekstin näyttämisestä Unityssa?;Rigidbody2D;AudioSource;TextMeshProUGUI-correct;Collider2D
+Mikä metodi suoritetaan vain kerran objektin luomisen yhteydessä?;Update();Start()-correct;FixedUpdate();OnCollisionEnter2D()
+Mikä Canvasin tila on yleisimmin käytössä 2D-peleissä käyttöliittymää varten?;World Space;Screen Space - Camera;Screen Space - Overlay-correct;Viewport
+Mitä luokkaa käytetään tiedostojen lukuun ja kirjoittamiseen Unityssa (C#)?;FileStream;StreamWriter / StreamReader-correct;Texture2D;MonoBehaviour
+Mikä tapahtuma käynnistyy, kun käyttäjä klikkaa UI-painiketta?;OnTriggerEnter2D();OnMouseDown();OnClick()-correct;Awake()
