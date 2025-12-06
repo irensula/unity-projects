@@ -53,9 +53,9 @@ public class MagicHitScript : MonoBehaviour
                 GameUIManager.Instance.AddGhostScore(1);
 
                 // tell the spawner a ghost was defeted
-                GhostSpawner spawner = FindObjectOfType<GhostSpawner>(); // find the GostSpawner script
+                GhostSpawner spawner = FindObjectOfType<GhostSpawner>();
                 if (spawner != null)
-                    spawner.OnGhostDefeated(); // call the OnGhostDefeated function
+                    spawner.OnGhostDefeated();
 
                 Destroy(c.gameObject); // destroy the ghost
                 Destroy(gameObject); // destroy the magic hit

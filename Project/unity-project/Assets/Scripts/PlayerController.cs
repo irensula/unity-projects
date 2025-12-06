@@ -79,9 +79,11 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Ghost"))
         {
             healthUI.TakeDamage(1);
-            GhostSpawner spawner = FindObjectOfType<GhostSpawner>(); // find the GostSpawner script
-                if (spawner != null)
-                    spawner.OnGhostDefeated(); // call the OnGhostDefeated function
+            GhostSpawner spawner = FindObjectOfType<GhostSpawner>();
+            if (spawner != null)
+            {
+                spawner.OnGhostDefeated();
+            }
             Destroy(other.gameObject);
             CheckGameOver();
         }

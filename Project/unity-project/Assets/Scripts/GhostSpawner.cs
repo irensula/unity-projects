@@ -8,7 +8,7 @@ public class GhostSpawner : MonoBehaviour
     public float spawnInterval = 5f;
     public float speed = 3f;
     public float spawnDistance = 10f;
-    public int amount = 5;
+    public int amount = 15;
     public float minDistanceFromPlayer = 5f;
 
     public Transform player;
@@ -62,60 +62,68 @@ public class GhostSpawner : MonoBehaviour
         Debug.Log($"GhostSpawner: all {amount} of ghosts were spawned");
     }
    
-    void SpawnGhost()
+    Vector3 GetSpawnPositionOutsideCamera()
     {
-        if (player == null) return;
+        // получаем камеру
+        Camera cam = Camera.main;
+        float camDistance = 10f; // на сколько далеко от игрока спавним
+        float spawnHeight = 1f;
 
         Vector3 spawnPos = Vector3.zero;
-        Vector3 targetPos = Vector3.zero;
 
-        int side = Random.Range(0,3);
-        float offsetZ = Random.Range(-5f, 5f);
-        float offsetX = Random.Range(-5f, 5f);
-        
+        int side = Random.Range(0, 4); // 0 = left, 1 = right, 2 = top, 3 = bottom
         switch (side)
         {
             case 0: // left
-                spawnPos = new Vector3(player.position.x - spawnDistance, player.position.y, player.position.z + offsetZ);
-                targetPos = new Vector3(player.position.x + spawnDistance, player.position.y, player.position.z + offsetZ);
+                spawnPos = player.position + Vector3.left * spawnDistance + Vector3.forward * Random.Range(-5f, 5f);
                 break;
-            case 2: // right
-                spawnPos = new Vector3(player.position.x + spawnDistance, player.position.y, player.position.z + offsetZ);
-                targetPos = new Vector3(player.position.x - spawnDistance, player.position.y, player.position.z + offsetZ);
+            case 1: // right
+                spawnPos = player.position + Vector3.right * spawnDistance + Vector3.forward * Random.Range(-5f, 5f);
                 break;
-            case 3: // front
-                spawnPos = new Vector3(player.position.x + offsetX, player.position.y, player.position.z + spawnDistance);
-                targetPos = new Vector3(player.position.x + offsetX, player.position.y, player.position.z - spawnDistance);
+            case 2: // top
+                spawnPos = player.position + Vector3.forward * spawnDistance + Vector3.right * Random.Range(-5f, 5f);
+                break;
+            case 3: // bottom
+                spawnPos = player.position + Vector3.back * spawnDistance + Vector3.right * Random.Range(-5f, 5f);
                 break;
         }
 
-        // check the distance to the player
-        if (Vector3.Distance(spawnPos, player.position) < minDistanceFromPlayer)
-        {
-            // move the ghost further from the player
-            Vector3 dir = (spawnPos - player.position).normalized;
-            spawnPos = player.position + dir * minDistanceFromPlayer;
-        }
+    spawnPos.y = spawnHeight;
 
-        GameObject ghost = Instantiate(ghostPrefab, spawnPos, Quaternion.identity);
-        GhostController ghostScript = ghost.GetComponent<GhostController>();
-        
-        if (ghostScript != null)
-        {
-            ghostScript.Init(player);
-            ghostScript.speed = speed;
-        }
+    // проверка земли
+    RaycastHit hit;
+    if (Physics.Raycast(spawnPos + Vector3.up * 10f, Vector3.down, out hit, 20f))
+    {
+        spawnPos.y = hit.point.y + 0.5f;
     }
 
-    // show congrats panel when all ghosts were destroyed
+    return spawnPos;
+}
+
+    void SpawnGhost()
+    {
+        Vector3 spawnPos = GetSpawnPositionOutsideCamera();
+    GameObject ghost = Instantiate(ghostPrefab, spawnPos, Quaternion.identity);
+
+    
+    GhostController ghostScript = ghost.GetComponent<GhostController>();
+    if (ghostScript != null && player != null)
+    {
+        ghostScript.Init(player);   
+        ghostScript.speed = speed;  
+    }
+    }
+
     public void OnGhostDefeated()
     {
-        defeatedGhosts++; // count destroyed ghosts
+        defeatedGhosts++;
 
-        if (defeatedGhosts >= amount) // compare with spawned amount of ghosts
+        if (defeatedGhosts >= amount)
         {
             Debug.Log("All ghosts were defeated!");
-            GameUIManager.Instance.ShowCongratsPanel(GameUIManager.Instance.congratsGhostPanel); // show congrats ghost panel
+            GameUIManager.Instance.ShowCongratsPanel(GameUIManager.Instance.congratsGhostPanel);
+            GameUIManager.Instance.ghostPanelShown = true;
+            Debug.Log("ghostPanelShown" + GameUIManager.Instance.ghostPanelShown);
         }
     }
 }

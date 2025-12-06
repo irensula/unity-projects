@@ -12,6 +12,7 @@ public class GameUIManager : MonoBehaviour
     public TextMeshProUGUI ghostScoreText;
     public TextMeshProUGUI coinScoreText;
     public TextMeshProUGUI diamondScoreText;
+    public Button nextButton;
 
     public int ghostScore = 0;
     public int coinScore = 0;
@@ -26,11 +27,7 @@ public class GameUIManager : MonoBehaviour
     public GameObject infoInventoryPanel;
     public GameObject inventoryPanel;
     public GameObject uiInventoryItemPrefab;
-    public GameObject currentPanel;
-    public Transform inventoryContent;
-
-    private bool allCoinsCollected = false;
-    private bool allDiamondsCollected = false;
+    public Transform inventoryContent; 
 
     public Dictionary<string, Sprite> itemSprites;
 
@@ -40,13 +37,11 @@ public class GameUIManager : MonoBehaviour
     public Sprite bookSprite;
     public Sprite bagSprite;
 
-    private Queue<GameObject> panelQueue = new Queue<GameObject>();
-    public Button nextButton;
+    private bool coinPanelShown = false;
+    private bool diamondPanelShown = false;
+    public bool ghostPanelShown = false;
 
-    private bool ghostPanelShown = false;
-    private bool coinsPanelShown = false;
-    private bool diamondsPanelShown = false;
-
+    private GameObject currentPanel = null;
     
     void Awake()
     {
@@ -80,14 +75,154 @@ public class GameUIManager : MonoBehaviour
         totalDiamondsInScene = GameObject.FindGameObjectsWithTag("Diamond").Length;
         Debug.Log("Total coins in this scene: " + totalCoinsInScene + ". Total diamonds in this scene: " + totalDiamondsInScene);
 
-        allCoinsCollected = false;
-        allDiamondsCollected = false;
-
         if (inventoryPanel != null)
             inventoryPanel.SetActive(false);
         
         LoadProgress();
         UpdateUI();
+    }
+
+    public void AddGhostScore(int amount)
+    {
+        ghostScore += amount;
+        SaveProgress();
+        UpdateUI();
+    }
+
+    public void AddCoinScore(int amount)
+    {
+        coinScore += amount;
+        SaveProgress();
+        UpdateUI();
+        if (coinScore >= totalCoinsInScene && totalCoinsInScene > 0 )
+        {
+            Debug.Log("All coins were gathered!");
+            ShowCongratsPanel(congratsCoinsPanel);
+            coinPanelShown = true;
+            Debug.Log("coinPanelShown" + coinPanelShown);
+        }
+    }
+
+    public void AddDiamondScore(int amount)
+    {
+        diamondScore += amount;
+        SaveProgress();
+        UpdateUI();
+
+        if (diamondScore >= totalDiamondsInScene && totalDiamondsInScene > 0)
+        {
+            Debug.Log("All diamonds were gathered!");
+            GameUIManager.Instance.ShowCongratsPanel(GameUIManager.Instance.congratsDiamondsPanel);
+            diamondPanelShown = true;
+            Debug.Log("diamondPanelShown" + diamondPanelShown);
+        }
+    }
+
+    void UpdateUI()
+    {
+        if (ghostScoreText != null)
+            ghostScoreText.text = ghostScore.ToString();
+        if (coinScoreText != null)
+            coinScoreText.text = coinScore.ToString();
+        if (diamondScoreText !=null)
+            diamondScoreText.text = diamondScore.ToString();
+    }
+
+    public void ShowCongratsPanel(GameObject panel)
+    {
+        if (panel != null)
+        {
+            currentPanel = panel;
+            panel.SetActive(true);
+            Time.timeScale = 0f;
+            panel.transform.localScale = Vector3.zero;
+            StartCoroutine(AnimatePanelBounce(panel));
+        }
+    }
+
+    public void OnNextButtonPressed() 
+    { 
+        if (currentPanel != null)             
+
+            if (currentPanel == congratsGhostPanel) ghostPanelShown = true;
+            if (currentPanel == congratsCoinsPanel) coinPanelShown = true;
+            if (currentPanel == congratsDiamondsPanel) diamondPanelShown = true;
+    
+            currentPanel.SetActive(false);
+            currentPanel = null; 
+            Time.timeScale = 1f;
+
+            if (ghostPanelShown && coinPanelShown && diamondPanelShown)
+            {
+                ShowInfoInventoryPanel();
+            }
+    }
+
+    void ShowInfoInventoryPanel()
+    {
+        infoInventoryPanel.SetActive(true);
+        Time.timeScale = 0f;
+        currentPanel = infoInventoryPanel;
+        StartCoroutine(AnimatePanelBounce(infoInventoryPanel));
+    }
+
+    public void OnInfoInventoryNextButtonPressed()
+    { 
+        ShowInventoryPanel();
+    }
+
+    IEnumerator AnimatePanelBounce(GameObject panel)
+    {
+        float duration = 0.3f;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            float scale = Mathf.Sin((elapsed / duration) * Mathf.PI);
+            panel.transform.localScale = Vector3.one * scale;
+            yield return null;
+        }
+        panel.transform.localScale = Vector3.one;
+    }
+
+    void ShowInventoryPanel()
+    {
+        // show info inventory panel
+        infoInventoryPanel.SetActive(false); // show info about inventory panel
+        inventoryPanel.SetActive(true); // show nventory panel
+        Time.timeScale = 1f;
+        currentPanel = inventoryPanel;
+        StartCoroutine(AnimatePanelBounce(inventoryPanel));
+        
+        // spawn inventory items in the scene
+        InventorySpawner spawner = FindObjectOfType<InventorySpawner>();
+        if (spawner != null)
+        {
+            spawner.SpawnInventoryItems();
+        } 
+        // make UI elements for all gathered inventory items
+        foreach (string itemId in GameManager.Instance.inventory)
+        {
+            if (itemSprites.TryGetValue(itemId, out Sprite sprite))
+            {
+                GameObject uiItem = Instantiate(uiInventoryItemPrefab, inventoryContent);
+                Debug.Log("inventoryContent = " + inventoryContent);
+                UIInventoryItem uiItemScript = uiItem.GetComponent<UIInventoryItem>();
+                uiItemScript.Setup(sprite);
+            }
+        }
+    }
+
+    public void AddItemToUI(Sprite itemSprite)
+    {
+        GameObject newItem = Instantiate(uiInventoryItemPrefab, inventoryContent);
+        UIInventoryItem uiItem = newItem.GetComponent<UIInventoryItem>();
+
+        if (uiItem != null)
+        {
+            uiItem.Setup(itemSprite);
+        }
     }
 
     // save progress
@@ -114,179 +249,6 @@ public class GameUIManager : MonoBehaviour
         ghostScore = 0;
         coinScore = 0;
         diamondScore = 0;
-        allCoinsCollected = false;
-        allDiamondsCollected = false;
         UpdateUI();
     }
-
-    public void AddGhostScore(int amount)
-    {
-        ghostScore += amount;
-        SaveProgress();
-        UpdateUI();
-    }
-
-    public void AddCoinScore(int amount)
-    {
-        coinScore += amount;
-        SaveProgress();
-        UpdateUI();
-        if (coinScore >= totalCoinsInScene && totalCoinsInScene > 0 && !allCoinsCollected)
-        {
-            allCoinsCollected = true;
-            Debug.Log("All coins were gathered!");
-            ShowCongratsPanel(congratsCoinsPanel);
-            coinsPanelShown == true;
-        }
-    }
-
-    public void AddDiamondScore(int amount)
-    {
-        diamondScore += amount;
-        SaveProgress();
-        UpdateUI();
-
-        if (diamondScore >= totalDiamondsInScene && totalDiamondsInScene > 0 && !allDiamondsCollected)
-        {
-            Debug.Log("All diamonds were gathered!");
-            GameUIManager.Instance.ShowCongratsPanel(GameUIManager.Instance.congratsDiamondsPanel);
-            diamondsPanelShown = true;
-        }
-    }
-
-    void UpdateUI()
-    {
-        if (ghostScoreText != null)
-            ghostScoreText.text = ghostScore.ToString();
-        if (coinScoreText != null)
-            coinScoreText.text = coinScore.ToString();
-        if (diamondScoreText !=null)
-            diamondScoreText.text = diamondScore.ToString();
-    }
-
-    IEnumerator AnimatePanelBounce(GameObject panel)
-    {
-        float duration = 0.3f;
-        float elapsed = 0f;
-
-        while (elapsed < duration)
-        {
-            elapsed += Time.unscaledDeltaTime;
-            float scale = Mathf.Sin((elapsed / duration) * Mathf.PI);
-            panel.transform.localScale = Vector3.one * scale;
-            yield return null;
-        }
-        panel.transform.localScale = Vector3.one;
-    }
-
-    public void ShowCongratsPanel(GameObject panel)
-    {
-        if (panel != null)
-        {
-            panel.SetActive(true);
-            if (ghostPanelShown && coinsPanelShown && diamondsPanelShown)
-            {
-                StartCoroutine(ShowInventorySequence());
-            }
-        }
-    }
-
-    IEnumerator ShowPanel(GameObject panel)
-    {
-        currentPanel = panel;
-        currentPanel.SetActive(true);
-        currentPanel.transform.localScale = Vector3.zero;
-        yield return StartCoroutine(AnimatePanelBounce(currentPanel));
-
-        bool nextPressed = false;
-        void OnNext() => nextPressed = true;
-
-        nextButton.onClick.AddListener(OnNext);
-        yield return new WaitUntil(() => nextPressed);
-        nextButton.onClick.RemoveListener(OnNext);
-
-        currentPanel.SetActive(false);
-        currentPanel = null;
-    }
-
-    public void OnNextButtonPressed()
-    {
-        if (currentPanel != null)
-            currentPanel.SetActive(false);
-
-        Time.timeScale = 1f;
-
-        currentPanel = null;
-        
-    }    
-
-    void ShowInventory()
-    {        
-        Debug.Log("📦 ShowInventory CALLED");
-    if (inventoryPanel != null && infoInventoryPanel != null)
-    {
-        Debug.Log("📦 Panels are NOT null");
-        StartCoroutine(ShowInventorySequence());
-    }
-    else
-    {
-        Debug.LogError("❌ Inventory panels are NULL!");
-    }
-    }
-
-    IEnumerator ShowInventorySequence()
-    {
-        if (infoInventoryPanel == null || inventoryPanel == null)
-        {
-            Debug.LogError("Inventory panels are not assigned!");
-            yield break;
-        }
-        // show info inventory panel
-        infoInventoryPanel.SetActive(true); // show info about inventory panel
-        yield return StartCoroutine(AnimatePanelBounce(infoInventoryPanel)); // animation effect for the infoInventoryPanel
-        // yield return new WaitForSecondsRealtime(5f); // infoInventory panel is shown for 5 sec
-
-        infoInventoryPanel.SetActive(false); // hide infoInventoryPanel 
-        // show inventory panel
-        inventoryPanel.SetActive(true); // show nventory panel
-       
-        currentPanel = inventoryPanel;
-        yield return StartCoroutine(AnimatePanelBounce(inventoryPanel)); // animation effect for the inventoryPanel
-        
-        // spawn inventory items in the scene
-        InventorySpawner spawner = FindObjectOfType<InventorySpawner>();
-        if (spawner != null)
-        {
-            spawner.SpawnInventoryItems();
-        } 
-        // make UI elements for all gathered inventory items
-        if (GameManager.Instance != null && GameManager.Instance.inventory != null)
-    {
-        foreach (string itemId in GameManager.Instance.inventory)
-        {
-            if (itemSprites.TryGetValue(itemId, out Sprite sprite))
-            {
-                GameObject uiItem = Instantiate(uiInventoryItemPrefab, inventoryContent);
-                Debug.Log("inventoryContent = " + inventoryContent);
-                UIInventoryItem uiItemScript = uiItem.GetComponent<UIInventoryItem>();
-                if (uiItemScript != null)
-                    uiItemScript.Setup(sprite);
-            }
-        }
-    }
-        Time.timeScale = 1f;
-    }
-
-    public void AddItemToUI(Sprite itemSprite)
-    {
-        GameObject newItem = Instantiate(uiInventoryItemPrefab, inventoryContent);
-        UIInventoryItem uiItem = newItem.GetComponent<UIInventoryItem>();
-
-        if (uiItem != null)
-        {
-            uiItem.Setup(itemSprite);
-        }
-    }
-
-    
 }
