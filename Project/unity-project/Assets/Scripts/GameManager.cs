@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using System;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+    public int itemsToWin = 5;
+    public event Action OnLevelCompleted;
 
     public List<string> inventory = new List<string>(); // inventory list
 
@@ -28,6 +32,21 @@ public class GameManager : MonoBehaviour
             inventory.Add(itemId);
             Debug.Log("Item added: " + itemId);
         }
+
+        if (inventory.Count >= itemsToWin)
+        {
+            LevelCompleted();
+        }
+    }
+
+    public void LevelCompleted()
+    {
+        OnLevelCompleted?.Invoke();
+    }
+
+    public void LoadNextLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
 // inventory items (key, map, flashlight)

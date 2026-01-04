@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RotatorScript : MonoBehaviour
 {
-    private float speed = 0.8f;
+    private float speed = 0.7f;
     void Update()
     {
         // change Rotation-attributes

@@ -17,7 +17,7 @@ public class InventorySpawner : MonoBehaviour
 
         for (int i = 0; i < inventoryToSpawn.Length && i < spawnPoints.Length; i++)
         {
-            Instantiate(inventoryToSpawn[i], spawnPoints[i].position, Quaternion.identity);
+            Instantiate(inventoryToSpawn[i], spawnPoints[i].position, spawnPoints[i].rotation);
         }
     } 
 }

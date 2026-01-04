@@ -8,6 +8,6 @@ public class DiamondScript : MonoBehaviour
     
     void Update()
     {
-        transform.Rotate(Vector3.right * Time.deltaTime * speed); 
+        transform.Rotate(Vector3.up * Time.deltaTime * speed); 
     }
 }

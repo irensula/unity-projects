@@ -45,7 +45,7 @@ public class GameUIManager : MonoBehaviour
     
     void Awake()
     {
-        ResetProgress(); // DELETE IT LATER!!!
+        ResetProgress();
         if (Instance == null)
         {
             Instance = this;
@@ -245,10 +245,14 @@ public class GameUIManager : MonoBehaviour
     // clear all saved data (on restarting the game)
     public void ResetProgress()
     {
-        PlayerPrefs.DeleteAll();
         ghostScore = 0;
         coinScore = 0;
         diamondScore = 0;
+
+        PlayerPrefs.DeleteKey("GhostScore");
+        PlayerPrefs.DeleteKey("CoinScore");
+        PlayerPrefs.DeleteKey("DiamondScore");
+
         UpdateUI();
     }
 }

@@ -11,6 +11,7 @@ public class PlayerSpawner : MonoBehaviour
     void Start()
     {
         string selected = PlayerPrefs.GetString("SelectedCharacter", "Boy_Player(Clone)");
+        Debug.Log("Loaded SelectedCharacterStatic = " + selected);
 
         GameObject playerToSpawn = selected == "Girl_Player(Clone)" ? girlPrefab : boyPrefab;
         GameObject player = Instantiate(playerToSpawn, spawnPoint.position, spawnPoint.rotation);
