@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
+using System.IO.Compression;
 
 public class GameUIManager : MonoBehaviour
 {
@@ -18,8 +19,8 @@ public class GameUIManager : MonoBehaviour
     public int coinScore = 0;
     public int diamondScore = 0;
 
-    private int totalCoinsInScene = 0;
-    private int totalDiamondsInScene = 0;
+    public int totalCoinsInScene = 0;
+    public int totalDiamondsInScene = 0;
 
     public GameObject congratsGhostPanel;
     public GameObject congratsCoinsPanel;
@@ -42,6 +43,12 @@ public class GameUIManager : MonoBehaviour
     public bool ghostPanelShown = false;
 
     private GameObject currentPanel = null;
+
+    public GameObject taskPanel;
+
+    public GameObject[] miniGamePanels;
+
+    public enum MiniGameType { Puzzle, Memo, Game3, Game4, Game5 };
     
     void Awake()
     {
@@ -99,7 +106,6 @@ public class GameUIManager : MonoBehaviour
             Debug.Log("All coins were gathered!");
             ShowCongratsPanel(congratsCoinsPanel);
             coinPanelShown = true;
-            Debug.Log("coinPanelShown" + coinPanelShown);
         }
     }
 
@@ -114,7 +120,6 @@ public class GameUIManager : MonoBehaviour
             Debug.Log("All diamonds were gathered!");
             GameUIManager.Instance.ShowCongratsPanel(GameUIManager.Instance.congratsDiamondsPanel);
             diamondPanelShown = true;
-            Debug.Log("diamondPanelShown" + diamondPanelShown);
         }
     }
 
@@ -207,7 +212,6 @@ public class GameUIManager : MonoBehaviour
             if (itemSprites.TryGetValue(itemId, out Sprite sprite))
             {
                 GameObject uiItem = Instantiate(uiInventoryItemPrefab, inventoryContent);
-                Debug.Log("inventoryContent = " + inventoryContent);
                 UIInventoryItem uiItemScript = uiItem.GetComponent<UIInventoryItem>();
                 uiItemScript.Setup(sprite);
             }
@@ -254,5 +258,21 @@ public class GameUIManager : MonoBehaviour
         PlayerPrefs.DeleteKey("DiamondScore");
 
         UpdateUI();
+    }
+
+    // show panel with minigame 
+    public void ShowMiniGame(MiniGameType gameType)
+    {
+        // close all minigame panels
+        foreach (var panel in miniGamePanels)
+            panel.SetActive(false);
+
+        // show panel with minigame
+        int index = (int)gameType;
+        if(index >= 0 && index < miniGamePanels.Length)
+        {
+            miniGamePanels[index].SetActive(true);
+            taskPanel.SetActive(true);
+        }
     }
 }

@@ -31,7 +31,7 @@ public class MagicHitScript : MonoBehaviour
     // method which makes the projectile move
     public void Shoot(Vector3 direction)
     {
-        rb.velocity = direction.normalized * speed;
+        rb.linearVelocity = direction.normalized * speed;
     }
     // hit is checked
     void Update()
