@@ -1,13 +1,15 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Collections;
-public class PuzzlePiece : MonoBehaviour, IDragHandler, IEndDragHandler
+
+public class PuzzlePiece : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public Transform correctSlot;
     private RectTransform rectTransform;
     private Canvas canvas;
     private bool isPlaced = false;
     private Vector2 startPosition;
+    public PuzzleManager puzzleManager;
 
     // start position of puzzle piece
     void Start()
@@ -22,7 +24,12 @@ public class PuzzlePiece : MonoBehaviour, IDragHandler, IEndDragHandler
         canvas = GetComponentInParent<Canvas>();
     }
 
-    
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        if (isPlaced) return;
+
+        SoundEvents.Puzzle.Pickup();
+    }
     public void OnDrag(PointerEventData eventData)
     {
         if (isPlaced) return;
@@ -35,11 +42,16 @@ public class PuzzlePiece : MonoBehaviour, IDragHandler, IEndDragHandler
         if (isPlaced) return;
 
         float distance = Vector2.Distance(rectTransform.position, correctSlot.position);
-        
+
         if (distance < 80f)
         {
+            if(puzzleManager == null) return;                  
+            
             rectTransform.position = correctSlot.position;
             isPlaced = true;
+            SoundEvents.Puzzle.Drop();
+            // check if all pieces are in their places
+            puzzleManager.CheckTaskCompleted();
         } 
         else
         {
@@ -65,5 +77,6 @@ public class PuzzlePiece : MonoBehaviour, IDragHandler, IEndDragHandler
         }
 
         rectTransform.anchoredPosition = startPosition;
+        SoundEvents.Puzzle.Back();
     }
 }

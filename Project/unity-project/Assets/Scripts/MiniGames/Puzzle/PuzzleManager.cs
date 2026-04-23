@@ -2,15 +2,23 @@ using UnityEngine;
 
 public class PuzzleManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public PuzzlePiece[] pieces;
+    public TaskCompleted taskCompleted;
+    
+    private bool isCompleted;
 
-    // Update is called once per frame
-    void Update()
+    public void CheckTaskCompleted()
     {
-        
+        if (isCompleted) return;
+    
+        foreach (var piece in pieces)
+        {
+            if (!piece.IsPlaced())
+                return;
+        }
+
+        isCompleted = true;
+        StartCoroutine(taskCompleted.ShowTaskCompletedPanel());
     }
+    
 }

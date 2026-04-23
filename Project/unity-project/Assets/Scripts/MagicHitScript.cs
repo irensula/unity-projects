@@ -7,8 +7,6 @@ public class MagicHitScript : MonoBehaviour
 {
     private Rigidbody rb;
     public PlayerController player;
-    public AudioSource audioSource;
-    public AudioClip hitClip;
     public GameObject hitEffect;
     public float speed = 10f;
     public float ghostScore = 0;
@@ -23,8 +21,8 @@ public class MagicHitScript : MonoBehaviour
 
     void Start()
     {
-        if (audioSource != null && audioSource.clip != null)
-            audioSource.Play();
+        // if (audioSource != null && audioSource.clip != null)
+        //     audioSource.Play();
 
         Destroy(gameObject, 5f);
     }
@@ -47,8 +45,9 @@ public class MagicHitScript : MonoBehaviour
                     Instantiate(hitEffect, transform.position, Quaternion.identity);
                 
                 // play sound
-                if(hitClip != null)
-                    AudioSource.PlayClipAtPoint(hitClip, transform.position);
+                // if(hitClip != null)
+                //     AudioSource.PlayClipAtPoint(hitClip, transform.position);
+                
                 // add score
                 GameUIManager.Instance.AddGhostScore(1);
 

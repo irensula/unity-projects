@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
     private float nextFireTime = 0f;
 
     public PlayerHealthUI healthUI;  
+    public AudioClip hitClip;
+    Animator anim;
 
     void Start()
     {
@@ -26,6 +28,18 @@ public class PlayerController : MonoBehaviour
             if (healthUI == null)
                 Debug.LogError("PlayerHealthUI not found in the scene!");
         }
+
+        anim = GetComponent<Animator>();
+        // anim = GetComponentInChildren<Animator>();
+        if (anim == null)
+{
+    Debug.LogError("Animator NOT FOUND!");
+}
+else
+{
+    Debug.Log("Animator found on: " + anim.gameObject.name);
+}
+        
     }
 
     // player's moves
@@ -59,6 +73,10 @@ public class PlayerController : MonoBehaviour
             ShootMagic();
             nextFireTime = Time.time + fireCooldown;
         }
+
+        anim.SetBool("isWalking", move != 0);
+        Debug.Log("move: " + move);
+        Debug.Log("isWalking: " + (move != 0));
     }
 
     // magic shoot
@@ -71,8 +89,9 @@ public class PlayerController : MonoBehaviour
         if (magicScript != null)
         {
             magicScript.player = this;   
-            magicScript.audioSource = magic.GetComponent<AudioSource>();
             magicScript.Shoot(firePoint.forward);
+
+            SoundEvents.Magic.Hit(); // magic hit sound
         }
     }
 
