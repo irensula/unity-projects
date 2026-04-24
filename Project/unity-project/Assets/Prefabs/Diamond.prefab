@@ -22,15 +22,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 317f4795e9c50544e9f1a6bfd0caebe6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2
+      value: 0.06742
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 317f4795e9c50544e9f1a6bfd0caebe6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 317f4795e9c50544e9f1a6bfd0caebe6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 11
+      value: 21.17184
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 317f4795e9c50544e9f1a6bfd0caebe6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -61,12 +61,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 317f4795e9c50544e9f1a6bfd0caebe6, type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: c14bf0baf9d0ec044b88754cf045bf29, type: 2}
     - target: {fileID: 919132149155446097, guid: 317f4795e9c50544e9f1a6bfd0caebe6, type: 3}
       propertyPath: m_Name
-      value: Diamond 1
+      value: Diamond
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 317f4795e9c50544e9f1a6bfd0caebe6, type: 3}
       propertyPath: m_TagString
@@ -119,10 +119,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 543576776961344263}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
