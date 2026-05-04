@@ -10,20 +10,21 @@ EditorBuildSettings:
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
     path: Assets/Scenes/CharacterSelection.unity
-    guid: 5c9acf06b30b6b349acec63b85b543c9
+    guid: c4ce2f5f097952f4cb95692d86c2c7d0
   - enabled: 1
     path: Assets/Scenes/Scene1.unity
     guid: 16cbc6bde3eea77448cdf9697e1e1b4a
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Scene2.unity
     guid: 797014f16c9185f40a8897da240376cb
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Scene3.unity
     guid: 4bf7996f035ad214184bf63402a288de
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/FinalScene.unity
     guid: 86e53a45038066c48abedb9eb2a0934a
   - enabled: 1
     path: Assets/Scenes/GameOver.unity
     guid: 5df3114a0f801ea46824908220ab55b4
   m_configObjects: {}
+  m_UseUCBPForAssetBundles: 0

@@ -8,6 +8,13 @@ using TMPro;
 
 public class StartSceneScript : MonoBehaviour
 {
+    // play background music
+    public void Start()
+    {
+        AudioManager.Instance.PlayBackgroundMusic(SoundId.Background_Music);
+    }
+
+    // go to the Character Selecteion Scene
     public void StartGame()
     {
         SceneManager.LoadScene("CharacterSelection");

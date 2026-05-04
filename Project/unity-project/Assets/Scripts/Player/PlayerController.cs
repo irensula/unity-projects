@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
 
     public PlayerHealthUI healthUI;  
     public AudioClip hitClip;
-    Animator anim;
+    private Animator anim;
 
     void Start()
     {
@@ -32,14 +32,13 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
         // anim = GetComponentInChildren<Animator>();
         if (anim == null)
-{
-    Debug.LogError("Animator NOT FOUND!");
-}
-else
-{
-    Debug.Log("Animator found on: " + anim.gameObject.name);
-}
-        
+        {
+            Debug.LogError("Animator NOT FOUND!");
+        }
+        else
+        {
+            Debug.Log("Animator found on: " + anim.gameObject.name);
+        }
     }
 
     // player's moves
@@ -75,8 +74,6 @@ else
         }
 
         anim.SetBool("isWalking", move != 0);
-        Debug.Log("move: " + move);
-        Debug.Log("isWalking: " + (move != 0));
     }
 
     // magic shoot

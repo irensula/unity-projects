@@ -542,7 +542,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4ea157fd3cc3ee4ab7f63afff318101, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: 
+  characterType: 0
   delayBeforeLoad: 3
 --- !u!4 &1045317782
 Transform:
@@ -845,6 +845,10 @@ PrefabInstance:
     - target: {fileID: 1049051510507765831, guid: d5049413b29d5cd4887c24de79351447, type: 3}
       propertyPath: characterName
       value: Girl_Player(Clone)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1049051510507765831, guid: d5049413b29d5cd4887c24de79351447, type: 3}
+      propertyPath: characterType
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1065255064435052897, guid: d5049413b29d5cd4887c24de79351447, type: 3}
       propertyPath: m_Name

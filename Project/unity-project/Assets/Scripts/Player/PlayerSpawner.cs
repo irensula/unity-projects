@@ -10,10 +10,9 @@ public class PlayerSpawner : MonoBehaviour
     
     void Start()
     {
-        string selected = PlayerPrefs.GetString("SelectedCharacter", "Boy_Player(Clone)");
-        Debug.Log("Loaded SelectedCharacterStatic = " + selected);
-
-        GameObject playerToSpawn = selected == "Girl_Player(Clone)" ? girlPrefab : boyPrefab;
+        int character = PlayerPrefs.GetInt("Character", 0);
+        
+        GameObject playerToSpawn = character == 1 ? girlPrefab : boyPrefab;
         GameObject player = Instantiate(playerToSpawn, spawnPoint.position, spawnPoint.rotation);
         Camera.main.GetComponent<MainCameraFollow>().player = player.transform;
     }
