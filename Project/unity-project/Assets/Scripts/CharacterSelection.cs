@@ -10,7 +10,8 @@ public class CharacterSelection : MonoBehaviour
     public float delayBeforeLoad = 3f;
 
     private Animator anim;
-    
+    public Animator boyAnim;
+    public Animator girlAnim;
 
     public enum CharacterType
     {
@@ -20,14 +21,16 @@ public class CharacterSelection : MonoBehaviour
 
     void Start()
     {   
-        anim = GetComponent<Animator>();
+        anim = GetComponentInChildren<Animator>();
 
         int character = PlayerPrefs.GetInt("Character", 0);
+        boyAnim.SetFloat("Character", 0);
+        girlAnim.SetFloat("Character", 1);
 
         bool isGirl = character == (int)CharacterType.Girl;
         
-        anim.SetBool("isGirl", isGirl);
         anim.SetBool("isWalking", false);
+
     }
 
     public void OnMouseDown()

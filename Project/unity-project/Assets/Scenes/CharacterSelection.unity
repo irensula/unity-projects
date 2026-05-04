@@ -119,6 +119,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!95 &10851135 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 542989274554747491, guid: 7aa22b86107b82548b5419f156abb98a, type: 3}
+  m_PrefabInstance: {fileID: 2455554716011046434}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &243928867
 GameObject:
   m_ObjectHideFlags: 0
@@ -513,52 +518,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 654550315}
   m_CullTransparentMesh: 1
---- !u!1 &1045317780
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1045317782}
-  - component: {fileID: 1045317781}
-  m_Layer: 0
-  m_Name: GameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1045317781
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1045317780}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4ea157fd3cc3ee4ab7f63afff318101, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterType: 0
-  delayBeforeLoad: 3
---- !u!4 &1045317782
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1045317780}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -21.244473, y: 12.091494, z: 3.3004456}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1158978147
 GameObject:
   m_ObjectHideFlags: 0
@@ -661,6 +620,11 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!95 &1194151235 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: -903368783345056204, guid: d5049413b29d5cd4887c24de79351447, type: 3}
+  m_PrefabInstance: {fileID: 3471706642726667499}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1731782166
 GameObject:
   m_ObjectHideFlags: 0
@@ -782,6 +746,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2006494733430895461, guid: 7aa22b86107b82548b5419f156abb98a, type: 3}
+      propertyPath: boyAnim
+      value: 
+      objectReference: {fileID: 10851135}
+    - target: {fileID: 2006494733430895461, guid: 7aa22b86107b82548b5419f156abb98a, type: 3}
+      propertyPath: girlAnim
+      value: 
+      objectReference: {fileID: 1194151235}
+    - target: {fileID: 2006494733430895461, guid: 7aa22b86107b82548b5419f156abb98a, type: 3}
       propertyPath: characterName
       value: Boy_Player(Clone)
       objectReference: {fileID: 0}
@@ -842,6 +814,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1049051510507765831, guid: d5049413b29d5cd4887c24de79351447, type: 3}
+      propertyPath: boyAnim
+      value: 
+      objectReference: {fileID: 10851135}
+    - target: {fileID: 1049051510507765831, guid: d5049413b29d5cd4887c24de79351447, type: 3}
+      propertyPath: girlAnim
+      value: 
+      objectReference: {fileID: 1194151235}
     - target: {fileID: 1049051510507765831, guid: d5049413b29d5cd4887c24de79351447, type: 3}
       propertyPath: characterName
       value: Girl_Player(Clone)
@@ -905,7 +885,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 243928870}
   - {fileID: 388537060}
-  - {fileID: 1045317782}
   - {fileID: 1731782170}
   - {fileID: 566966393}
   - {fileID: 1158978151}
