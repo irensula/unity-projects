@@ -77,7 +77,6 @@ public class PlayerController : MonoBehaviour
         }
 
         anim.SetBool("isWalking", move != 0);
-        Debug.Log("move = " + move + " | isWalking = " + (move != 0));
     }
 
     // magic shoot

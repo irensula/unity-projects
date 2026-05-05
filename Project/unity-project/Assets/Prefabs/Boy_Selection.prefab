@@ -32,7 +32,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3888643034305897191}
+  - {fileID: 6572976377992434133}
   - {fileID: 6596714703567048059}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -133,7 +133,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4678483712909807791}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &3638210591973491980
+--- !u!1001 &6682601109879043646
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -143,15 +143,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 912ff0e8f335a534683b1ab2c61ecac7, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.36
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 912ff0e8f335a534683b1ab2c61ecac7, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.36
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 912ff0e8f335a534683b1ab2c61ecac7, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.36
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 912ff0e8f335a534683b1ab2c61ecac7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -197,13 +197,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boy_new
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 912ff0e8f335a534683b1ab2c61ecac7, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 7a3f3726d96bfbd448978def85be7d8b, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 912ff0e8f335a534683b1ab2c61ecac7, type: 3}
---- !u!4 &3888643034305897191 stripped
+--- !u!4 &6572976377992434133 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 912ff0e8f335a534683b1ab2c61ecac7, type: 3}
-  m_PrefabInstance: {fileID: 3638210591973491980}
+  m_PrefabInstance: {fileID: 6682601109879043646}
   m_PrefabAsset: {fileID: 0}
