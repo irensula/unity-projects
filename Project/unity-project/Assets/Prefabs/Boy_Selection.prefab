@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6601393259977423275}
   - component: {fileID: 1250490648823905778}
   - component: {fileID: 2006494733430895461}
-  - component: {fileID: 542989274554747491}
   m_Layer: 0
   m_Name: Boy_Selection
   m_TagString: Boy
@@ -99,30 +98,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4ea157fd3cc3ee4ab7f63afff318101, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: Boy
+  characterType: 0
   delayBeforeLoad: 3
---- !u!95 &542989274554747491
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4716744622851995239}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 912ff0e8f335a534683b1ab2c61ecac7, type: 3}
-  m_Controller: {fileID: 9100000, guid: 7a3f3726d96bfbd448978def85be7d8b, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  boyAnim: {fileID: 4849505415116067419}
+  girlAnim: {fileID: 0}
 --- !u!1 &5648099547508027301
 GameObject:
   m_ObjectHideFlags: 0
@@ -234,6 +213,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: db6d6cc6772e789429fb4852b4dff3dc, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 912ff0e8f335a534683b1ab2c61ecac7, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 7a3f3726d96bfbd448978def85be7d8b, type: 2}
     - target: {fileID: 6058404513066261974, guid: 912ff0e8f335a534683b1ab2c61ecac7, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.000081
@@ -258,5 +241,10 @@ PrefabInstance:
 --- !u!4 &1561847126243035169 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 912ff0e8f335a534683b1ab2c61ecac7, type: 3}
+  m_PrefabInstance: {fileID: 1307858991548936138}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &4849505415116067419 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 912ff0e8f335a534683b1ab2c61ecac7, type: 3}
   m_PrefabInstance: {fileID: 1307858991548936138}
   m_PrefabAsset: {fileID: 0}

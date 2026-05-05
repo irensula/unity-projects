@@ -29,8 +29,11 @@ public class PlayerController : MonoBehaviour
                 Debug.LogError("PlayerHealthUI not found in the scene!");
         }
 
-        anim = GetComponent<Animator>();
-        // anim = GetComponentInChildren<Animator>();
+        // anim = GetComponent<Animator>();
+        anim = GetComponentInChildren<Animator>();
+        int character = PlayerPrefs.GetInt("Character", 0);
+        anim.SetFloat("Character", character);
+
         if (anim == null)
         {
             Debug.LogError("Animator NOT FOUND!");
@@ -74,6 +77,7 @@ public class PlayerController : MonoBehaviour
         }
 
         anim.SetBool("isWalking", move != 0);
+        Debug.Log("move = " + move + " | isWalking = " + (move != 0));
     }
 
     // magic shoot

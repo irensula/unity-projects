@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 312105019396833617}
   - component: {fileID: 197685017572850515}
   - component: {fileID: 4836950135260501241}
-  - component: {fileID: 2515738527767696924}
   m_Layer: 0
   m_Name: Girl_Player
   m_TagString: Player
@@ -106,28 +105,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!95 &2515738527767696924
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3969912966998546073}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 100d34f5134412741add6ab3b4201ac2, type: 3}
-  m_Controller: {fileID: 9100000, guid: 7a3f3726d96bfbd448978def85be7d8b, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6764852321502505025
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,6 +200,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Girl
       objectReference: {fileID: 0}
+    - target: {fileID: 1630794972795428178, guid: 100d34f5134412741add6ab3b4201ac2, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: db6d6cc6772e789429fb4852b4dff3dc, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 100d34f5134412741add6ab3b4201ac2, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 7a3f3726d96bfbd448978def85be7d8b, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
